@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Build Linux binary
+        run: |
+          # Install pkg globally
+          npm install -g pkg
+          
+          # Package the application for Linux
+          npm run build
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./dist/cz-bin-linux-x64
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

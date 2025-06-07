@@ -1,0 +1,19 @@
+{
+  "name": "commitizen_bin",
+  "version": "1.0.0",
+  "author": "hi-dka",
+  "license": "MIT",
+  "description": "Binary distribution of commitizen for standardized git commit messages",
+  "scripts": {
+    "build": "npx pkg cli.js --public --targets node18-linux-x64 --output dist/cz-bin-linux-x64"
+  },
+  "dependencies": {
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "/snapshot/commitizen_bin/node_modules/cz-conventional-changelog"
+    }
+  }
+}
